@@ -35,13 +35,13 @@ static McxStatus Read(Component * comp, ComponentInput * input, const struct Con
 
     if (DatabusGetInChannelsNum(comp->GetDatabus(comp)) != 1) {
         ComponentLog(comp, LOG_ERROR, "Illegal number of input channels");
-        ComponentLog(comp, LOG_ERROR, "Expected: %d, Read: %d", 1, DatabusGetInChannelsNum(comp->GetDatabus(comp)));
+        ComponentLog(comp, LOG_ERROR, "Expected: %d, Read: %zu", 1, DatabusGetInChannelsNum(comp->GetDatabus(comp)));
         return RETURN_ERROR;
     }
 
     if ((DatabusGetOutChannelsNum(comp->GetDatabus(comp)) < 0) ||  (DatabusGetOutChannelsNum(comp->GetDatabus(comp)) > 1)) {
         ComponentLog(comp, LOG_ERROR, "Illegal number of input channels");
-        ComponentLog(comp, LOG_ERROR, "Expected: %d or %d, Read: %d", 0, 1, DatabusGetOutChannelsNum(comp->GetDatabus(comp)));
+        ComponentLog(comp, LOG_ERROR, "Expected: %d or %d, Read: %zu", 0, 1, DatabusGetOutChannelsNum(comp->GetDatabus(comp)));
         return RETURN_ERROR;
     }
 
