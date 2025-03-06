@@ -35,13 +35,13 @@ static McxStatus Read(Component * comp, ComponentInput * input, const struct Con
 
     if (DatabusGetInChannelsNum(comp->GetDatabus(comp)) != 1) {
         ComponentLog(comp, LOG_ERROR, "Illegal number of input channels");
-        ComponentLog(comp, LOG_ERROR, "Expected: %d, Read: %d", 1, DatabusGetInChannelsNum(comp->GetDatabus(comp)));
+        ComponentLog(comp, LOG_ERROR, "Expected: %d, Read: %zu", 1, DatabusGetInChannelsNum(comp->GetDatabus(comp)));
         return RETURN_ERROR;
     }
 
     if ((DatabusGetOutChannelsNum(comp->GetDatabus(comp)) < 0) ||  (DatabusGetOutChannelsNum(comp->GetDatabus(comp)) > 1)) {
         ComponentLog(comp, LOG_ERROR, "Illegal number of input channels");
-        ComponentLog(comp, LOG_ERROR, "Expected: %d or %d, Read: %d", 0, 1, DatabusGetOutChannelsNum(comp->GetDatabus(comp)));
+        ComponentLog(comp, LOG_ERROR, "Expected: %d or %d, Read: %zu", 0, 1, DatabusGetOutChannelsNum(comp->GetDatabus(comp)));
         return RETURN_ERROR;
     }
 
@@ -56,13 +56,13 @@ static McxStatus Setup(Component * comp) {
     CompIntegrator * integrator = (CompIntegrator *) comp;
     McxStatus retVal = RETURN_OK;
 
-    retVal = DatabusSetInReference(comp->GetDatabus(comp), 0, &integrator->deriv, CHANNEL_DOUBLE);
+    retVal = DatabusSetInReference(comp->GetDatabus(comp), 0, &integrator->deriv, &ChannelTypeDouble);
     if (RETURN_OK != retVal) {
         ComponentLog(comp, LOG_ERROR, "Could not register in channel reference");
         return RETURN_ERROR;
     }
 
-    retVal = DatabusSetOutReference(comp->GetDatabus(comp), 0, &integrator->state, CHANNEL_DOUBLE);
+    retVal = DatabusSetOutReference(comp->GetDatabus(comp), 0, &integrator->state, &ChannelTypeDouble);
     if (RETURN_OK != retVal) {
         ComponentLog(comp, LOG_ERROR, "Could not register out channel reference");
         return RETURN_ERROR;
